@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>ABC Skin Clinic</title>
+</head>
+
+<body>
+
+<h2>ABC Skin Clinic Appointment Booking</h2>
+
+<form action="/book" method="post">
+
+Patient Name:
+<input type="text" name="patientName" required>
+<br><br>
+
+Date:
+<input type="date" name="appointmentDate" required>
+<br><br>
+
+Doctor:
+<select name="doctor.id">
+<option th:each="doc : ${doctors}"
+        th:value="${doc.id}"
+        th:text="${doc.name}">
+</option>
+</select>
+
+<br><br>
+
+<button type="submit">Book Appointment</button>
+
+</form>
+
+</body>
+
+</html>
