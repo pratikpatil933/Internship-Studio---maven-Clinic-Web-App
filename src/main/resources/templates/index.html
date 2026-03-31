@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-<title>ABC Skin Clinic</title>
+    <title>ABC Skin Clinic</title>
 </head>
-
 <body>
+    <h2>ABC Skin Clinic Appointment Booking</h2>
 
-<h2>ABC Skin Clinic Appointment Booking</h2>
+    <form th:action="@{/book}" th:object="${appointment}" method="post">
+        Patient Name:
+        <input type="text" th:field="*{patientName}" required>
+        <br><br>
 
-<form action="/book" method="post">
+        Date:
+        <input type="date" th:field="*{appointmentDate}" required>
+        <br><br>
 
-Patient Name:
-<input type="text" name="patientName" required>
-<br><br>
+        Doctor:
+        <select th:field="*{doctor.id}">
+            <option th:each="doc : ${doctors}"
+                    th:value="${doc.id}"
+                    th:text="${doc.name}">
+            </option>
+        </select>
+        <br><br>
 
-Date:
-<input type="date" name="appointmentDate" required>
-<br><br>
-
-Doctor:
-<select name="doctor.id">
-<option th:each="doc : ${doctors}"
-        th:value="${doc.id}"
-        th:text="${doc.name}">
-</option>
-</select>
-
-<br><br>
-
-<button type="submit">Book Appointment</button>
-
-</form>
-
+        <button type="submit">Book Appointment</button>
+    </form>
 </body>
-
 </html>
