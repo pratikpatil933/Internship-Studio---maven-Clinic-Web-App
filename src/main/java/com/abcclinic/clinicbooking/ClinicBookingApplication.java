@@ -6,15 +6,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder; // Need this i
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer; // Need this import
 
 @SpringBootApplication
-public class ClinicBookingApplication extends SpringBootServletInitializer { // Added 'extends'
+public class ClinicBookingApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ClinicBookingApplication.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ClinicBookingApplication.class, args);
-    }
-
-    // This method is mandatory for external Tomcat deployment
-    @Override 
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) { 
-        return builder.sources(ClinicBookingApplication.class); 
     }
 }
