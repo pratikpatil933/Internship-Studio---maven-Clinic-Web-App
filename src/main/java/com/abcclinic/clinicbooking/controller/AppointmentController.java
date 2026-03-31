@@ -16,33 +16,23 @@ public class AppointmentController {
     private final DoctorRepository doctorRepository;
     private final AppointmentRepository appointmentRepository;
 
-    // Constructor injection is the best practice here
     public AppointmentController(DoctorRepository doctorRepository,
                                  AppointmentRepository appointmentRepository) {
         this.doctorRepository = doctorRepository;
         this.appointmentRepository = appointmentRepository;
     }
 
-    /**
-     * This method handles the root URL.
-     * When you visit /clinic-web-app/, this method runs.
-     */
     @GetMapping("/")
-    public String home(Model model) {
-        // Fetch doctors from DB and send to the index.html template
+    public String showForm(Model model) {
+        // Ensure doctors are fetched so the dropdown isn't empty
         model.addAttribute("doctors", doctorRepository.findAll());
-        // Create an empty appointment object for the form binding
-        model.addAttribute("appointment", new Appointment()); 
-        return "index"; // Looks for src/main/resources/templates/index.html
+        model.addAttribute("appointment", new Appointment());
+        return "index"; 
     }
 
-    /**
-     * This method handles the form submission.
-     */
     @PostMapping("/book")
     public String bookAppointment(@ModelAttribute("appointment") Appointment appointment) {
         appointmentRepository.save(appointment);
-        // Redirects back to the home page after saving
         return "redirect:/";
     }
 }
